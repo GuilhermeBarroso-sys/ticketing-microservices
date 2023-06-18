@@ -7,7 +7,9 @@ class SignupController {
 	async handle(request : Request, response : Response) {
 		const schema = z.object({
 			email: z.string().email("Invalid E-mail!"),
-			password: z.string().trim().min(4, "Password must to have 3 or more characters").max(20)
+			password: z.string().trim()
+				.min(4, "Password size must have between 4 and 20 characters")
+				.max(20, "Password size must have between 4 and 20 characters")
 		});
 		Validator.verifyBody({bodyParams: request.body, schema});
   
