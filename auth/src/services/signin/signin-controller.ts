@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
-import { Validator } from "../../../common/validator";
+
 import { SigninUseCase } from "./signin-use-case";
 import { z } from "zod";
+import { Validator } from "@gbotickets/common";
 
 class SigninController {
 	async handle(request : Request, response: Response) {

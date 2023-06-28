@@ -1,5 +1,6 @@
+import { BadRequestError } from "@gbotickets/common";
 import { Password } from "../../../common/password-hash";
-import { BadRequestError } from "../../errors/bad-request-error";
+
 import { User } from "../../models/User";
 import jwt from "jsonwebtoken";
 

@@ -9,11 +9,11 @@ const start = async () => {
 		await connect(process.env.MONGO_URI as string);
 		console.log("Connected to mongodb!");
 	} catch(err) {
-		console.error(err);
+		throw new Error("MONGO NOT CONNECTED!");
 	}
 	app.listen(3000, () => {
 
-		console.log("Listening on port 3000!! NODE_ENV:", process.env.NODE_ENV);
+		console.log("Listening on port 3000! NODE_ENV:", process.env.NODE_ENV);
 	});
 };
 

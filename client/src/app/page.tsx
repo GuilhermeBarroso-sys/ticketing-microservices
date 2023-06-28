@@ -15,6 +15,7 @@ export type CurrentUser = {
 }
 
 export default async function Home() {
+
 	const authCookie = cookies().get("session");
 	api.defaults.headers.Cookie = `${authCookie?.name}=${authCookie?.value}`;
 	const currentUser = await api.get<CurrentUser>("/users/currentuser");

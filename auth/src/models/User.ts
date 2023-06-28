@@ -5,10 +5,7 @@ interface IUserSchema {
   password: string;
 }
 
-export interface ICurrentUser {
-  id: string;
-  email: string;
-}
+
 
 
 interface UserModel extends mongoose.Model<UserDoc> {

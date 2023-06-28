@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { User } from "../../models/User";
-import { BadRequestError } from "../../errors/bad-request-error";
 import jwt from "jsonwebtoken";
+import { BadRequestError } from "@gbotickets/common";
 interface ISignupUseCaseProps {
   email: string;
   password: string;
