@@ -22,7 +22,7 @@ beforeEach(async () => {
 });
 global.getMockedCookie =  () => {
 	const payload = {
-		id: "k412ojti14k",
+		id: new mongoose.Types.ObjectId().toHexString(),
 		email: "test@gmail.com"
 	};
 	const token =  sign(payload, process.env.JWT_KEY as string);

@@ -14,7 +14,7 @@ app.use(cookieSession({
 	signed: false,
 	secure: process.env.NODE_ENV !== "test"
 }));
-app.use("/api/tickets", ensureCurrentUser, ticketRoutes);
+app.use("/api/tickets", ticketRoutes);
 app.all("*", (request, response, next) => {
 	throw new NotFoundError();
 });
