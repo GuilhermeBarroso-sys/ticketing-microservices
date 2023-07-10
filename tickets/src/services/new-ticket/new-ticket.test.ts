@@ -3,6 +3,8 @@ import { app } from "../../app";
 import { Ticket } from "../../models/Ticket";
 
 
+
+
 it("has a route handler listening to /api/tickets for post requests", async () => {
 	const response = await request(app)
 		.post("/api/tickets")
@@ -61,3 +63,4 @@ it("create a ticket with valid inputs", async () => {
 	verifyTickets = await Ticket.find({}); 
 	expect(verifyTickets.length).toEqual(1);
 });
+

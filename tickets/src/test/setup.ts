@@ -5,6 +5,11 @@ import { sign } from "jsonwebtoken";
 declare global {
   var getMockedCookie: () => string[];
 }
+
+jest.mock("../nats-wrapper");
+jest.mock("../events/publishers/ticket-created-publisher.ts");
+jest.mock("../events/publishers/ticket-updated-publisher.ts");
+
 beforeAll(async () => {
 	process.env.JWT_KEY = "test";
 	mongo = await MongoMemoryServer.create();
@@ -14,8 +19,8 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
+	jest.clearAllMocks();
 	const collections = await mongoose.connection.db.collections();
-
 	for (const collection of collections) {
 		await collection.deleteMany({});
 	}
