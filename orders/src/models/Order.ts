@@ -47,7 +47,7 @@ const orderSchema = new mongoose.Schema<IOrderSchema>({
 			ret.id = ret._id;
 
 			delete ret._id;
-			delete ret.__v;
+
 		}
 	}
 });

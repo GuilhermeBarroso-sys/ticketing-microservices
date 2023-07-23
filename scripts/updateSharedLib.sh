@@ -8,5 +8,6 @@ do
   cd $folder
   echo "Running npm update in $folder..."
   npm update @gbotickets/common
+
   cd ..
 done

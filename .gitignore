@@ -134,3 +134,4 @@ dist
 
 # others
 nats-test
+.DS_STORE
