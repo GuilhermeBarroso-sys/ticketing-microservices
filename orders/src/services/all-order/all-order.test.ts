@@ -1,6 +1,7 @@
 import request from "supertest";
 import { app } from "../../app";
 import { Ticket } from "../../models/Ticket";
+import mongoose from "mongoose";
 
 it("has a route handler listening to /api/orders/ for GET requests", async () => {
 	const response = await request(app)
@@ -40,7 +41,8 @@ it("Should return orders", async () => {
 	for(let i = 0; i < 3; i++) {
 		const newTicket = Ticket.build({
 			price: i+1,
-			title: "test"+i
+			title: "test"+i,
+			id: new mongoose.Types.ObjectId().toHexString()
 		});
 		await newTicket.save();
 		await request(app)
@@ -69,7 +71,8 @@ it("Should return orders", async () => {
 	for(let i = 0; i < 3; i++) {
 		const newTicket = Ticket.build({
 			price: i+1,
-			title: "test"+i
+			title: "test"+i,
+			id: new mongoose.Types.ObjectId().toHexString()
 		});
 		await newTicket.save();
 		await request(app)

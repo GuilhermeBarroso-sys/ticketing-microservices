@@ -47,7 +47,8 @@ it("Shouldn't return an order", async () => {
 it("Should throw an NotAuthorizedError error", async () => {
 	const ticket = Ticket.build({
 		price: 50,
-		title: "Event"
+		title: "Event",
+		id: new mongoose.Types.ObjectId().toHexString()
 	});
 	const cookie1 = global.getMockedCookie();
 	const cookie2 = global.getMockedCookie();
@@ -70,7 +71,8 @@ it("Should throw an NotAuthorizedError error", async () => {
 it("Should return an order", async () => {
 	const ticket = Ticket.build({
 		price: 50,
-		title: "Event"
+		title: "Event",
+		id: new mongoose.Types.ObjectId().toHexString()
 	});
 	const cookie = global.getMockedCookie();
 	await ticket.save();

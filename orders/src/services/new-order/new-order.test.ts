@@ -63,7 +63,8 @@ it("Shouldn't create a order because ticket doesn't exist", async () => {
 it("create a order with valid inputs", async () => {
 	const newTicket = Ticket.build({
 		price: 10,
-		title: "test"
+		title: "test",
+		id: new mongoose.Types.ObjectId().toHexString()
 	});
 	await newTicket.save();
 	let verifyorders = await Order.find({});
@@ -82,7 +83,8 @@ it("create a order with valid inputs", async () => {
 it("Shouldn't create order because ticket is reserved", async () => {
 	const newTicket = Ticket.build({
 		price: 10,
-		title: "test"
+		title: "test",
+		id: new mongoose.Types.ObjectId().toHexString()
 	});
 	await newTicket.save();
 	await request(app)

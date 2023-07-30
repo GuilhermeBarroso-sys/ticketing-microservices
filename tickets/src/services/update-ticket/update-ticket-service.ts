@@ -1,4 +1,4 @@
-import { NotAuthorizedError, NotFoundError } from "@gbotickets/common";
+import { BadRequestError, NotAuthorizedError, NotFoundError } from "@gbotickets/common";
 import { Ticket } from "../../models/Ticket";
 import { TicketUpdatedPublisher } from "../../events/publishers/ticket-updated-publisher";
 import { natsWrapper } from "../../nats-wrapper";
@@ -16,7 +16,10 @@ class UpdateTicketService {
 		if(!ticket) {
 			throw new NotFoundError();
 		}
-		if(ticket?.userId !== userId) {
+		if(ticket!.orderId) {
+			throw new BadRequestError("Ticket is reserved and cannot be modified.");
+		}
+		if(ticket!.userId !== userId) {
 			throw new NotAuthorizedError();
 		}
 		ticket.set({

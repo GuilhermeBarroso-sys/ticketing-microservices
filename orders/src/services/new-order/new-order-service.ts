@@ -42,7 +42,9 @@ class NewOrderService {
 			ticket: {
 				id: ticket.id,
 				price: ticket.price
-			}
+			},
+			version: order.version
+
 		});
 		return order;
 	}

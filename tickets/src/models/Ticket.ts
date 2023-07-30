@@ -7,20 +7,28 @@ interface ITicketSchema {
   price: number;
   userId: string;
 }
-
+interface IFindByIdAndPrevVersionProps {
+  event: {
+    ticketId: string;
+    version: number;
+  }
+}
 interface ITicketDoc extends mongoose.Document {
   title: string;
   price: number;
   userId: string;
   version: number;
+  orderId?: string;
 }
 
 interface ITicketModel extends mongoose.Model<ITicketDoc> {
   build(schema : ITicketSchema) : ITicketDoc;
+  findByIdAndPrevVersion (data : IFindByIdAndPrevVersionProps) : Promise<ITicketDoc | null>
+  
 }
 
 
-const ticketSchema = new mongoose.Schema<ITicketSchema>({
+const ticketSchema = new mongoose.Schema({
 	title: {
 		type: String,
 		required: true
@@ -32,6 +40,9 @@ const ticketSchema = new mongoose.Schema<ITicketSchema>({
 	userId: {
 		type: String,
 		required: true
+	},
+	orderId: {
+		type: String,
 	}
 }, {
 	toJSON: {
@@ -42,7 +53,13 @@ const ticketSchema = new mongoose.Schema<ITicketSchema>({
 	}
 });
 
-
+ticketSchema.statics.findByIdAndPrevVersion = async ({event} : IFindByIdAndPrevVersionProps) => {
+	const {ticketId,version} = event;
+	return Ticket.findOne({
+		_id: ticketId,
+		version: version - 1
+	});
+};
 ticketSchema.set("versionKey", "version");
 ticketSchema.plugin(updateIfCurrentPlugin);
 ticketSchema.statics.build = (schema : ITicketSchema) => {

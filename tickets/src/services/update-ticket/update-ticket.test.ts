@@ -63,7 +63,29 @@ it("return a status  401 if the user is not the owner of the ticket", async () =
 			price: 20
 		}).expect(401);
 });
+it("Shouldn't update a ticket already reserved. ", async () => {
+	const sameCookie = global.getMockedCookie();
+	const ticket = await request(app)
+		.post("/api/tickets")
+		.set("Cookie", sameCookie)
+		.send({
+			title: "afsfasfs",
+			price: 20
+		});
+	const modifiedTicket = await Ticket.findById(ticket.body.id);
+	modifiedTicket!.set({ orderId: new mongoose.Types.ObjectId().toHexString()});
+	await modifiedTicket!.save();
+	await request(app)
+		.put(`/api/tickets/${ticket.body.id}`)
+		.set("Cookie", sameCookie)
+		.send({
+			title: "testt",
+			price: 50,
+		})
+		.expect(400);
+    
 
+});
 it("Should update a ticket ", async () => {
 	const sameCookie = global.getMockedCookie();
 	const ticket = await request(app)
