@@ -10,6 +10,7 @@ interface IOrderTicket {
 
 class DeleteOrderService {
 	async execute({orderId, userId} : IOrderTicket) {
+		console.log(orderId);
 		const order = await Order.findById(orderId).populate("ticket");
 		if(!order) throw new NotFoundError();
 		if(userId !== order.userId) throw new NotAuthorizedError();

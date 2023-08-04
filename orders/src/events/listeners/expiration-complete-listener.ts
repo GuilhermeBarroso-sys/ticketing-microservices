@@ -1,0 +1,34 @@
+import { ExpirationCompleteEvent, Listener, NotFoundError, OrderStatus, Subjects } from "@gbotickets/common";
+import { Message } from "node-nats-streaming";
+import { queueGroupName } from "./queue-group-name";
+import { Order } from "../../models/Order";
+import { OrderCancelledPublisher } from "../publishers/order-cancelled-publisher";
+import { natsWrapper } from "../../nats-wrapper";
+
+class ExpirationCompleteListener extends Listener<ExpirationCompleteEvent> {
+	readonly subject =  Subjects.ExpirationComplete;
+	queueGroupName = queueGroupName;
+	async onMessage(data: ExpirationCompleteEvent["data"], msg: Message) {
+		const order = await Order.findById(data.orderId);
+		if(!order) {
+			throw new NotFoundError();
+		}
+		order.set({
+			status: OrderStatus.Cancelled,
+		});
+		await order.save();
+
+		new OrderCancelledPublisher(natsWrapper.client).publish({
+			id: order.id,
+			ticket: {
+				id: order.ticket._id
+			},
+			version: order.version
+		});
+		msg.ack();
+	}
+
+}
+
+
+export { ExpirationCompleteListener };

@@ -10,7 +10,8 @@ interface INewOrder {
 }
 
 class NewOrderService {
-	private EXPIRATION_WINDOW_SECONDS = 15 * 60;
+	private EXPIRATION_WINDOW_SECONDS = 1 * 60;
+	// private EXPIRATION_WINDOW_SECONDS = 2;
 	async execute({ticketId, userId} : INewOrder) {
 		const ticket = await Ticket.findById(ticketId);
 		if(!ticket) {

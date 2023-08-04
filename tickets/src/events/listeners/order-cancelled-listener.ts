@@ -9,10 +9,12 @@ export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
 	readonly subject = Subjects.OrderCancelled;
 	queueGroupName = queueGroupName;
 	async onMessage(data : OrderCreatedEvent["data"], msg: Message) {
+
 		const ticket = await Ticket.findById(data.ticket.id);
 		if(!ticket) {
 			throw new NotFoundError();
 		} 
+  
 		ticket.set({
 			orderId: undefined
 		});
@@ -26,6 +28,8 @@ export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
 			orderId: ticket.orderId
 		});
 		msg.ack();
+		
+		
 	}
   
 }

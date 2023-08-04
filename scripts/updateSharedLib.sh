@@ -1,6 +1,6 @@
 #!/bin/bash
 
-folders=("auth" "tickets" "orders")
+folders=("auth" "tickets" "orders", "expiration", "payments")
 
 cd ..
 for folder in "${folders[@]}"
