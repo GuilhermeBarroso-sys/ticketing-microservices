@@ -44,8 +44,7 @@ it("Shouldn't ack the message", async()=>{
 
 
 });
-
-it("acks the messages", async()=>{
+it("ack the message if the order already been completed", async()=>{
 	const {listener,message, orderCreatedData} = await setup();
 	const data : ExpirationCompleteEvent["data"] = {
 		orderId: orderCreatedData.id
@@ -54,6 +53,22 @@ it("acks the messages", async()=>{
 	const order = await Order.findById(data.orderId);
 	expect(order).toBeDefined();
 	expect(order?.status).toBe(OrderStatus.Cancelled);
+	expect(message.ack).toBeCalled();
+
+});
+it("acks the messages", async()=>{
+	const {listener,message, orderCreatedData} = await setup();
+	orderCreatedData.set({
+		status: OrderStatus.Complete
+	});
+	await orderCreatedData.save();
+	const data : ExpirationCompleteEvent["data"] = {
+		orderId: orderCreatedData.id
+	};
+	await listener.onMessage(data, message);
+	const order = await Order.findById(data.orderId);
+	expect(order).toBeDefined();
+	expect(order?.status).toBe(OrderStatus.Complete);
 	expect(message.ack).toBeCalled();
 
 });

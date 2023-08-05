@@ -14,8 +14,8 @@ class NewPaymentController {
 		const {token, orderId} = request.body;
 		const userId = request.currentUser!.id;
 		const newPaymentService = new NewPaymentService();
-		await newPaymentService.execute({orderId,token,userId});
-		return response.status(201).json({});
+		const payment = await newPaymentService.execute({orderId,token,userId});
+		return response.status(201).json(payment);
 	}
 }
 

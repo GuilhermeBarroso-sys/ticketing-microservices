@@ -15,7 +15,7 @@ declare global {
 }
 
 jest.mock("../nats-wrapper");
-// jest.mock("../adapters/stripe.ts");
+jest.mock("../events/publishers/payment-created-publisher.ts");
 process.env.STRIPE_KEY = "sk_test_51MV4AZFe6NHo0cuYH7s6FzGd1g8wceX7uS9S1ZnUec2BRYtiILHGe43k4dEEgyIjskCYQBDpbKmIBmC97zxU2CGH00ipj4UaSW";
 
 

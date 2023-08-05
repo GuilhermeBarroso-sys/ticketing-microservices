@@ -32,9 +32,7 @@ class NewPaymentService {
 			stripeId: charge.id,
 			orderId
 		});
-		return {
-			success: true
-		};
+		return {paymentId: payment.id, orderId};
 	}
 }
 

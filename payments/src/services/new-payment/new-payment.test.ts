@@ -158,3 +158,28 @@ it("Should create the payment without problems", async () => {
 	});
 	expect(payment).toBeDefined();
 });
+
+it("Should return the payment and order id", async () => {
+	const randomPrice = Math.floor(Math.random() * 100000);
+	const cookie = global.getMockedCookie();
+	const {id : userId} = global.getMockedCookieId(cookie);
+	const order = Order.build({
+		id: new mongoose.Types.ObjectId().toHexString(),
+		price: randomPrice,
+		status: OrderStatus.Created,
+		userId,
+		version: 1
+	});
+	await order.save();
+	const response = await request(app)
+		.post("/api/payments")
+		.set("Cookie", cookie)
+		.send({
+			orderId: order.id,
+			token: "tok_visa",
+		})
+		.expect(201);
+	expect(response.body.orderId).toBeDefined();
+	expect(response.body.paymentId).toBeDefined();
+
+});

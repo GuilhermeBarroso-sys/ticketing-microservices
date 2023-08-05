@@ -1,4 +1,4 @@
-import { ExpirationCompleteEvent, Listener, NotFoundError, OrderStatus, Subjects } from "@gbotickets/common";
+import { BadRequestError, ExpirationCompleteEvent, Listener, NotFoundError, OrderStatus, Subjects } from "@gbotickets/common";
 import { Message } from "node-nats-streaming";
 import { queueGroupName } from "./queue-group-name";
 import { Order } from "../../models/Order";
@@ -12,6 +12,9 @@ class ExpirationCompleteListener extends Listener<ExpirationCompleteEvent> {
 		const order = await Order.findById(data.orderId);
 		if(!order) {
 			throw new NotFoundError();
+		}
+		if(order.status === OrderStatus.Complete) {
+			return msg.ack();
 		}
 		order.set({
 			status: OrderStatus.Cancelled,
