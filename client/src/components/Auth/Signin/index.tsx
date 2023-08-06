@@ -1,12 +1,11 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
-import { showError } from "../../../utils/showError";
 import { api } from "@/services/api";
 import Link from "next/link";
-
-export function Signup() {
+import { useRouter } from "next/navigation";
+import { FormEvent, useState } from "react";
+import { showError } from "../../../../utils/showError";
+export function Signin() {
 	const router = useRouter();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -14,7 +13,7 @@ export function Signup() {
 	const handleSubmit =  async (e : FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		try {
-			await api.post("/users/signup", {
+			await api.post("/users/signin", {
 				email, password
 			});
 			router.push("/");
@@ -32,7 +31,7 @@ export function Signup() {
 				className="w-full max-w-md "
 				onSubmit={handleSubmit}
 			>
-				<h2 className="text-2xl text-gray-800 text-center font-bold mb-6">Sign up</h2>
+				<h2 className="text-2xl text-gray-800 text-center font-bold mb-6">Sign in</h2>
 				<div className="bg-white rounded-lg shadow-md p-6">
 
 					<div className="mb-4">
@@ -70,10 +69,9 @@ export function Signup() {
 						type="submit"
 						className="w-full bg-purple-500 text-white py-3 rounded-lg hover:bg-purple-600 transition duration-300"
 					>
-          Sign up
+          Sign in
 					</button>
-					<h3 className="mt-6 text-base"> Already have an account? <Link className="font-bold text-purple-500" href="/auth/signin">Click here</Link></h3>
-					
+					<h3 className="mt-6 text-base"> Doesn't have an account? <Link className="font-bold text-purple-500" href="/auth/signup">Click here</Link></h3>
 				</div>
 			</form>
 		</div>
