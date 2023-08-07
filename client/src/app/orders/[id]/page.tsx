@@ -2,6 +2,7 @@ import { OrderDetails } from "@/components/Order/OrderDetails";
 import { api } from "@/services/api";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { getCurrentUser } from "../../../../utils/getCurrentUser";
 import { setCookie } from "../../../../utils/setCookie";
 interface PageProps {
   params: {
@@ -30,8 +31,8 @@ export default async function Page({params} : PageProps) {
 		}
 		setCookie();
 		const {data : order} = await api.get<Order>(`/orders/${id}`);
-		console.log(order);
-		return <OrderDetails order={order}/>;
+		const currentUser = await getCurrentUser();
+		return <OrderDetails order={order} currentUser={currentUser}/>;
 	} catch(err) {
 		return <h1>Error</h1>;
 	}

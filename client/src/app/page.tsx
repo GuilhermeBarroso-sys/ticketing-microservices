@@ -13,7 +13,7 @@ export type CurrentUser = {
   }
 }
 
-export default async function Home() {
+export default async function Page() {
 	try {
 		const authCookie = cookies().get("session") ;
 		api.defaults.headers.Cookie = `${authCookie?.name}=${authCookie?.value}`;

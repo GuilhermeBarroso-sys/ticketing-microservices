@@ -1,7 +1,7 @@
 import { BadRequestError, NotFoundError, OrderStatus } from "@gbotickets/common";
-import { Ticket } from "../../models/Ticket";
-import { Order } from "../../models/Order";
 import { OrderCreatedPublisher } from "../../events/publishers/order-created-publisher";
+import { Order } from "../../models/Order";
+import { Ticket } from "../../models/Ticket";
 import { natsWrapper } from "../../nats-wrapper";
 
 interface INewOrder {

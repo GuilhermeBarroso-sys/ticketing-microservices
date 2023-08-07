@@ -1,7 +1,7 @@
 import { Listener, NotFoundError, OrderStatus, PaymentCreatedEvent, Subjects } from "@gbotickets/common";
-import { queueGroupName } from "./queue-group-name";
 import { Message } from "node-nats-streaming";
 import { Order } from "../../models/Order";
+import { queueGroupName } from "./queue-group-name";
 
 class PaymentCreatedListener extends Listener<PaymentCreatedEvent> {
 	readonly subject = Subjects.PaymentCreated;
@@ -12,7 +12,7 @@ class PaymentCreatedListener extends Listener<PaymentCreatedEvent> {
 			throw new NotFoundError();
 		}
 		order.set({
-			status: OrderStatus.Created
+			status: OrderStatus.Complete
 		});
 		await order.save();
 		msg.ack();

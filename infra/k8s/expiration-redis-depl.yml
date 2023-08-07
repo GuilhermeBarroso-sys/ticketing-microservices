@@ -15,13 +15,7 @@ spec:
       containers:
         - name: expiration-redis
           image: redis
-          resources:
-            requests:
-              memory: "128Mi" # Request 256 megabytes of memory
-              cpu: "100m"     # Request 100 milliCPU (0.1 CPU core)
-            limits:
-              memory: "128Mi" # Limit memory usage to 256 megabytes
-              cpu: "100m"     # Limit CPU usage to 200 milliCPU 
+ 
 ---
 apiVersion: v1
 kind: Service

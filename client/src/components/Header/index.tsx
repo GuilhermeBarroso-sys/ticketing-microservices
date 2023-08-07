@@ -31,6 +31,10 @@ export function Header({isUserAuthenticated} : IHeaderProps) {
 					{
 						title: "Create a ticket",
 						path: "/tickets/new"
+					},
+					{
+						title: "My orders",
+						path: "/orders"
 					}
 				]} title="Menu" isDropdownOpen={isDropdownOpen} onClick={toggleTicketDropDown} />
 				{!isUserAuthenticated ? (<div className="flex gap-4">

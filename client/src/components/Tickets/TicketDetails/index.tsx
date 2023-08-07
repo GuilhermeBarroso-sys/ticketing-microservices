@@ -46,7 +46,6 @@ export function TicketDetails({ticket, currency, isAuthenticated} : ITicketDetai
 			>
 				<h1 className="text-2xl font-bold">{ticket.title}</h1>
 				<p> <strong>Price: </strong> {currency ? currency : "R$"} {ticket.price}</p>
-				<p> <strong>Status: </strong> </p>
 				<Button className="mt-4" variant="primary">Purchase</Button>
 			</form>
 		</div>
