@@ -1,10 +1,11 @@
 import { connect } from "mongoose";
 import { app } from "./app";
-import { natsWrapper } from "./nats-wrapper";
-import { OrderCreatedListener } from "./events/listeners/order-created-listener";
 import { OrderCancelledListener } from "./events/listeners/order-cancelled-listener";
+import { OrderCreatedListener } from "./events/listeners/order-created-listener";
+import { natsWrapper } from "./nats-wrapper";
 
 const start = async () => {
+	console.log("starting up...");
 	if(!process.env.JWT_KEY) {
 		throw new Error("JWT_KEY must to be valid");
 	}
