@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "dev": "export NODE_ENV=development && ts-node-dev --ignore-watch node_modules --transpile-only src/index.ts",
-    "test": "jest --no-cache"
+    "test": "jest --no-cache",
+    "test:ci": "jest"
   },
   "jest": {
     "preset": "ts-jest",
