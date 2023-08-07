@@ -1,12 +1,12 @@
 
 import request from "supertest";
-import {app} from "../../app";
+import { app } from "../../app";
 it("should return 'currentUser' attribute on response body ", async () => {
 	
 	const cookie = await global.getMockedCookie();
 	const response = await request(app)
 		.get("/api/users/currentuser")
-		.expect(200)
+		.expect(400) // breaking the test
 		.set("Cookie", cookie);
 
 	expect(response.body).toHaveProperty("currentUser");
