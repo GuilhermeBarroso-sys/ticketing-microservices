@@ -1,8 +1,8 @@
 
+import cookieSession from "cookie-session";
+import cors from "cors";
 import express from "express";
 import "express-async-errors";
-import cors from "cors";
-import cookieSession  from "cookie-session";
 // import { authRoutes } from "./routes/auth";
 import { NotFoundError, ensureCurrentUser, errorHandler, requireAuth } from "@gbotickets/common";
 import { ordersRoutes } from "./routes/orders";
@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(cors());
 app.use(cookieSession({
 	signed: false,
-	secure: process.env.NODE_ENV !== "test"
+	secure: false
 }));
 
 app.use("/api/orders", ensureCurrentUser, requireAuth, ordersRoutes);

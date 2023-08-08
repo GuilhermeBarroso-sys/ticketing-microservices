@@ -1,13 +1,13 @@
 import axios from "axios";
 
 export const api = typeof window == "undefined" ? axios.create({
-	baseURL: "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api",
+	baseURL: "http://testgui.beauty/api",
 	headers: {
-		Host: "ticketing.dev"
+		Host: "testgui.beauty"
 	}
 })
 	: 
 	axios.create({ baseURL: "/api"});
 
-  
+
 
