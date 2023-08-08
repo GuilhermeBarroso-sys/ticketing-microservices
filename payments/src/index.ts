@@ -1,8 +1,8 @@
 import { connect } from "mongoose";
 import { app } from "./app";
-import { natsWrapper } from "./nats-wrapper";
-import { OrderCreatedListener } from "./events/listeners/order-created-listener";
 import { OrderCancelledListener } from "./events/listeners/order-cancelled-listener";
+import { OrderCreatedListener } from "./events/listeners/order-created-listener";
+import { natsWrapper } from "./nats-wrapper";
 
 
 const start = async () => {
@@ -17,6 +17,7 @@ const start = async () => {
 			console.log("Nats connection closed!");
 			process.exit();
 		});
+    
 		process.on("SIGINT", () => natsWrapper.client.close());
 		process.on("SIGTERM", () => natsWrapper.client.close());
 		new OrderCreatedListener(natsWrapper.client).listen();

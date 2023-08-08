@@ -9,3 +9,5 @@ export const api = typeof window == "undefined" ? axios.create({
 	: 
 	axios.create({ baseURL: "/api"});
 
+  
+
