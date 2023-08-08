@@ -1,6 +1,6 @@
 
 import request from "supertest";
-import {app} from "../../app";
+import { app } from "../../app";
 it("should return 'currentUser' attribute on response body ", async () => {
 	
 	const cookie = await global.getMockedCookie();
