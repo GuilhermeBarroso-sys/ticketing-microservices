@@ -11,6 +11,7 @@ const start = async () => {
 	}
 	try {
 	
+    
 		await connect(process.env.MONGO_URI as string);
 		await natsWrapper.connect(process.env.NATS_CLUSTER_ID!, process.env.NATS_CLIENT_ID!, process.env.NATS_URL!);
 		console.log("Mongo connected!");

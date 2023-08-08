@@ -1,10 +1,10 @@
 
+import { NotFoundError, errorHandler } from "@gbotickets/common";
+import cookieSession from "cookie-session";
+import cors from "cors";
 import express from "express";
 import "express-async-errors";
-import cors from "cors";
-import cookieSession  from "cookie-session";
 import { authRoutes } from "./routes/auth";
-import { NotFoundError, errorHandler } from "@gbotickets/common";
 const app = express();
 app.set("trust proxy", true);
 app.use(express.json());
@@ -18,6 +18,7 @@ app.all("*", (request, response, next) => {
 	throw new NotFoundError();
 });
 app.use(errorHandler);
+
 
 
 
