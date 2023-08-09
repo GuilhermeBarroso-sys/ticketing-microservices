@@ -21,6 +21,7 @@ export default async function Page() {
 		const tickets = await api.get<Ticket[]>("/tickets");
 		return <LandingPage currentUser={currentUser.data.currentUser} tickets={tickets.data}/>;
 	} catch(err) {
+		console.error(err);
 		return <h1>Something is wrong</h1>;
 	}
 
